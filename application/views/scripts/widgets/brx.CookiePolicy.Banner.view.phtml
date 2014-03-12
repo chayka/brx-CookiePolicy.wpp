@@ -1,0 +1,18 @@
+<?php
+    $href = OptionHelper_brx_CookiePolicy::getOption('policy_url');
+?>
+<div class="brx-cookiepolicy-banner" data-view="brx.CookiePolicy.Banner">
+    <div class="note">i</div>
+    <div class="corner"></div>
+    <div class="popup">
+        <div class="title"><?php NlsHelper::__('Cookie Policy');?></div>
+        <div class="message"><?php NlsHelper::__('This site uses cookies to store information on your computer.');?></div>
+        <div class="link"><?php if($href):?><a href="<?php echo $href;?>" target="cookie_policy"><?php NlsHelper::__('Read more');?></a><?php endif;?></div>
+        <div class="confirmation"><?php NlsHelper::__('Happy to accept?');?></div>
+        <div class="buttons">
+            <button class="yes" data-attach-event="buttonAcceptClicked">Yes</button>
+            <button class="no" data-attach-event="buttonDeclineClicked">No</button>
+        </div>
+    </div>
+</div>
+
