@@ -18,7 +18,8 @@ class brx_CookiePolicy_CookiePolicyController extends Zend_Controller_Action{
     
     public function declineAction(){
         Util::turnRendererOff();
-        if(setcookie('cookie_policy_accepted', false, time() + 60*60*24*31*12*5, '/')){
+        $flag = InputHelper::getParam('flag', false);
+        if(setcookie('cookie_policy_accepted', $flag?'not realy':false, time() + 60*60*24*31*12*5, '/')){
             JsonHelper::respond();
         }
         

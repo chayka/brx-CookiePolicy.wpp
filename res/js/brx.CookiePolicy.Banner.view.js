@@ -21,7 +21,16 @@
         },
         
         buttonDeclineClicked: function(){
-            window.location = 'http://google.com';
+            this.ajax('/api/cookie-policy/decline/', {
+                data:{
+                    flag: true
+                },
+                spinner: false,
+                success: $.proxy(function(){
+                    this.$el.hide();
+                }, this)
+            });
+//            window.location = 'http://google.com';
         }
     });
 }(jQuery, _));
