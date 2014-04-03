@@ -39,55 +39,9 @@ class brx_CookiePolicy extends WpPlugin{
     }
 
     public function registerCustomPostTypes() {
-        ZF_Core::registerCustomPostTypeContentFragment();
-        self::registerCustomPostTypeDummy();
+//        ZF_Core::registerCustomPostTypeContentFragment();
     }
 
-    public static function registerCustomPostTypeDummy() {
-        $labels = array(
-            'name' => NlsHelper::_('Dummy'), //'post type general name'),
-            'singular_name' => NlsHelper::_('Dummy'), //'post type singular name'),
-            'add_new' => NlsHelper::_('Add dummy'), //'item'),
-            'add_new_item' => NlsHelper::_('Add dummy'),
-            'edit_item' => NlsHelper::_('Edit'),
-            'new_item' => NlsHelper::_('New dummy'),
-            'all_items' => NlsHelper::_('All dummies'),
-            'view_item' => NlsHelper::_('View dummy'),
-            'search_items' => NlsHelper::_('Search dummies'),
-            'not_found' => NlsHelper::_('No dummies found'),
-            'not_found_in_trash' => NlsHelper::_('No dummies in trash bin'),
-            'parent_item_colon' => '',
-            'menu_name' => NlsHelper::_('Dummies')
-        );
-        $args = array(
-            'labels' => $labels,
-            'public' => true,
-            'publicly_queryable' => true,
-            'show_ui' => true,
-            'show_in_menu' => true,
-            'query_var' => true,
-            'rewrite' => array('slug' => self::POST_TYPE_DUMMY),
-            'capability_type' => 'post',
-            'has_archive' => true,
-            'hierarchical' => true,
-            'menu_position' => 20,
-            'taxonomies' => array(
-                'category',
-                'post_tag',
-                self::TAXONOMY_DUMMY_TAG,
-            ),
-            'supports' => array(
-                'title', 
-                'editor', 
-//                'author', 
-                'thumbnail', 
-                'excerpt', 
-                'comments',
-                'page-attributes',
-                )
-        );
-        register_post_type(self::POST_TYPE_DUMMY, $args);
-    }
     
     public function enableSearch($query){
         if ($query->is_search) {
@@ -105,43 +59,15 @@ class brx_CookiePolicy extends WpPlugin{
     
     public function registerTaxonomies(){
   // Add new taxonomy, make it hierarchical (like categories)
-        self::registerTaxonomyDummyTag();
     }
 
-    public static function registerTaxonomyDummyTag(){
-        $labels = array(
-            'name' => NlsHelper::_('Dummy tags'), //'taxonomy general name'),
-            'singular_name' => NlsHelper::_('Dummy tag'), //'taxonomy singular name'),
-            'search_items' => NlsHelper::_('Find dummy tag'),
-            'all_items' => NlsHelper::_('All dummy tags'),
-            'edit_item' => NlsHelper::_('Edit'),
-            'update_item' => NlsHelper::_('Update'),
-            'add_new_item' => NlsHelper::_('Add dummy tag'),
-            'new_item_name' => NlsHelper::_('Name'),
-            'menu_name' => NlsHelper::_('Dummy tags'),
-        );
-
-        register_taxonomy(self::TAXONOMY_DUMMY_TAG, 
-                array(
-                    self::POST_TYPE_DUMMY,
-                ), 
-                array(
-                    'hierarchical' => false,
-                    'labels' => $labels,
-                    'show_ui' => true,
-                    'query_var' => true,
-                    'rewrite' => array('slug' => self::TAXONOMY_DUMMY_TAG),
-                ));
-        
-    }
-    
 
     public function postPermalink($permalink, $post, $leavename = false){
         switch($post->post_type){
-            case 'post':
-                return '/entry/'.$post->ID.'/'.($leavename?'%postname%':$post->post_name);
-            case self::POST_TYPE_DUMMY:
-                return '/dummy/'.($leavename?'%postname%':$post->post_name);
+//            case 'post':
+//                return '/entry/'.$post->ID.'/'.($leavename?'%postname%':$post->post_name);
+//            case self::POST_TYPE_DUMMY:
+//                return '/dummy/'.($leavename?'%postname%':$post->post_name);
             default:
                 return $permalink;
         }
@@ -152,7 +78,7 @@ class brx_CookiePolicy extends WpPlugin{
     }
 
     public function registerNavMenus(){
-        $this->registerNavMenu('main-menu', 'Main-menu');
+//        $this->registerNavMenu('main-menu', 'Main-menu');
     }
     
     public function customizeNavMenuItems($items, $args){
@@ -179,12 +105,6 @@ class brx_CookiePolicy extends WpPlugin{
     }
     
     public function registerMetaBoxes() {
-        
-        $this->addMetaBox('seo_params',
-            NlsHelper::_( 'SEO Params'),
-            '/metabox/seo-params',
-            'normal',
-            'high');
     }
     
     public function savePost($postId, $post){
